@@ -24,7 +24,7 @@
 
   <script>
     const username = Sam-Hellwege";
-    fetch(`https://api.github.com/users/${Sam-Hellwege}/repos?per_page=100`)
+    fetch(`https://api.github.com/users/${username}/repos?per_page=100`)
       .then(res => res.json())
       .then(data => {
         const list = document.getElementById("repo-list");
