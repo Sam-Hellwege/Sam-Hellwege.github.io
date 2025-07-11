@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="./output.css" rel="stylesheet">
+</head>
+
+<body class="relative text-gray-800 min-h-screen">
+
+  <!-- Background image -->
+  <div class="absolute inset-0 bg-[url('swirl_optimized.jpg')] bg-cover bg-center -z-10"></div>
+
+  <!-- Foreground content -->
+  <div class="max-w-4xl mx-auto relative z-10 p-6">
+    <header class="frosted-glass mb-8 text-center">
+      <h1 class="text-4xl font-bold text-blue-200">SAMUEL HELLWEGE</h1>
+      <p class="mt-2 text-lg text-gray-300">From Code to Clarity<br> Building Software, Supporting Users, Optimising Business Processes</p>
+    </header>
+
+
+    <div class="frosted-glass">
+      <h2 class="text-2xl font-bold text-white drop-shadow">Hey there! 👋</h2>
+      <p class="mt-2 text-white/90">
+        Welcome to my personal GitHub<br>
+        Here you’ll find a curated collection of my public projects.
+      </p>
+      <p class="mt-4 italic text-gray-300">
+        Scroll down to explore what I’ve been crafting.
+      </p>
+    </div>
+
+
+    <ul id="repo-list" class="space-y-4">
+      <li class="text-gray-500">Loading repositories...</li>
+    </ul>
+
+    <footer class="mt-12 text-center text-sm text-gray-400">
+      &copy; <span id="year"></span> Samuel Hellwege. Powered by GitHub API.
+    </footer>
+  </div>
+
+  <script>
+    const username = "Sam-Hellwege";
+    fetch(`https://api.github.com/users/${username}/repos?per_page=100`)
+      .then(res => res.json())
+      .then(data => {
+        const list = document.getElementById("repo-list");
+        list.innerHTML = "";
+        data
+          .sort((a, b) => b.stargazers_count - a.stargazers_count)
+          .forEach(repo => {
+            const li = document.createElement("li");
+            li.className = "frosted-glass text-white";
+            li.innerHTML = `
+              <a href="${repo.html_url}" class="text-xl font-semibold text-blue-200 hover:text-blue-400">
+                ${repo.name}
+              </a>
+              <p class="text-white mt-1">${repo.description || "No description provided."}</p>
+              <div class="mt-2 text-sm text-gray-300">
+                ⭐ ${repo.stargazers_count} &nbsp;•&nbsp; Updated: ${new Date(repo.updated_at).toLocaleDateString()}
+              </div>
+            `;
+            list.appendChild(li);
+          });
+      })
+      .catch(err => {
+        document.getElementById("repo-list").innerHTML = `<li class="text-red-500">Failed to load repositories.</li>`;
+        console.error(err);
+      });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+
+</html>

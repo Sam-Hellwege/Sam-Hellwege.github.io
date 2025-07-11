@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@layer components {
+  .frosted-glass {
+    @apply bg-gray-900/60 backdrop-blur-sm border border-white/20 shadow-md rounded-lg p-5 mb-4 text-white;
+  }
+}
