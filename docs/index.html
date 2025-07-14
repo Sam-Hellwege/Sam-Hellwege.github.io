@@ -57,7 +57,7 @@
               <a href="${repo.html_url}" class="text-xl font-semibold text-blue-200 hover:text-blue-400">
                 ${repo.name}
               </a>
-              <p class="text-white mt-1">${repo.description || "No description provided."}</p>
+              <p class="text-white mt-1">📝${repo.description || "No description provided."}</p>
               <p class="text-white mt-1">💻${repo.language || "No Language detected."}</p>
               <div class="mt-2 text-sm text-gray-300">
                 ⭐ ${repo.stargazers_count} &nbsp;•&nbsp; Updated: ${new Date(repo.updated_at).toLocaleDateString()}
