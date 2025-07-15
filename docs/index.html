@@ -5,7 +5,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="./output.css" rel="stylesheet">
-  <title>Samuel Hellwege | GitHub Portfolio</title>
 </head>
 
 <body class="relative text-gray-800 min-h-screen">
@@ -17,13 +16,11 @@
   <div class="max-w-4xl mx-auto relative z-10 p-6">
     <header class="frosted-glass mb-8 text-center">
       <h1 class="text-4xl font-bold text-blue-200">SAMUEL HELLWEGE</h1>
-      <p class="mt-2 text-lg text-gray-300">
-        From Code to Clarity<br>
-        Building Software, Supporting Users, Optimising Business Processes
-      </p>
+      <p class="mt-2 text-lg text-gray-300">From Code to Clarity<br> Building Software, Supporting Users, Optimising Business Processes</p>
     </header>
 
-    <div class="frosted-glass mb-6">
+
+    <div class="frosted-glass">
       <h2 class="text-2xl font-bold text-white drop-shadow">Hey there! 👋</h2>
       <p class="mt-2 text-white/90">
         Welcome to my personal GitHub<br>
@@ -33,6 +30,7 @@
         Scroll down to explore what I’ve been crafting.
       </p>
     </div>
+
 
     <ul id="repo-list" class="space-y-4">
       <li class="text-gray-500">Loading repositories...</li>
@@ -45,24 +43,13 @@
 
   <script>
     const username = "Sam-Hellwege";
-
     fetch(`https://api.github.com/users/${username}/repos?per_page=100`)
       .then(res => res.json())
       .then(data => {
         const list = document.getElementById("repo-list");
         list.innerHTML = "";
-
         data
-          .sort((a, b) => {
-            const isOngoingA = a.description?.startsWith("ONGOING:") ? 1 : 0;
-            const isOngoingB = b.description?.startsWith("ONGOING:") ? 1 : 0;
-
-            if (isOngoingA !== isOngoingB) {
-              return isOngoingB - isOngoingA; // Prioritize ONGOING:
-            }
-
-            return b.stargazers_count - a.stargazers_count; // Then sort by stars
-          })
+          .sort((a, b) => b.stargazers_count - a.stargazers_count)
           .forEach(repo => {
             const li = document.createElement("li");
             li.className = "frosted-glass text-white";
@@ -80,14 +67,12 @@
           });
       })
       .catch(err => {
-        document.getElementById("repo-list").innerHTML =
-          `<li class="text-red-500">Failed to load repositories.</li>`;
+        document.getElementById("repo-list").innerHTML = `<li class="text-red-500">Failed to load repositories.</li>`;
         console.error(err);
       });
 
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
-
 </body>
 
 </html>
